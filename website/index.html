@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1320" />
+
+  <!-- SEO -->
+  <title>CloudHost — Static Site on AWS S3 + CloudFront</title>
+  <meta name="description" content="A production-grade static website hosted on Amazon S3 and delivered globally through CloudFront with HTTPS, least-privilege IAM, and Origin Access Control." />
+  <meta name="author" content="Curve Digital Solutions" />
+  <link rel="canonical" href="https://s3-demo.sillageandskin.com/" />
+
+  <!-- Open Graph (social previews) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="CloudHost — Static Site on AWS S3 + CloudFront" />
+  <meta property="og:description" content="Production-grade static hosting on AWS: private S3 origin, CloudFront CDN, HTTPS, and least-privilege IAM." />
+  <meta property="og:image" content="https://s3-demo.sillageandskin.com/assets/og-image.svg" />
+  <meta property="og:url" content="https://s3-demo.sillageandskin.com/" />
+
+  <!-- Icons & styles -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preload" href="css/styles.css" as="style" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <nav class="nav container" aria-label="Primary">
+      <a class="brand" href="#top">
+        <span class="brand__mark" aria-hidden="true">☁</span>
+        <span class="brand__name">CloudHost</span>
+      </a>
+      <button class="nav__toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a class="nav__cta" href="#contact">Get in touch</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <p class="eyebrow">Amazon S3 · CloudFront · IAM</p>
+        <h1 class="hero__title">A static site, deployed the way the&nbsp;pros do it.</h1>
+        <p class="hero__lead">
+          This page is served from a <strong>private</strong> Amazon S3 bucket through a
+          global CloudFront CDN over HTTPS — no public buckets, least-privilege IAM, and
+          infrastructure that follows the AWS Well-Architected Framework.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#architecture">See the architecture</a>
+          <a class="btn btn--ghost" href="#stack">View the stack</a>
+        </div>
+        <dl class="hero__stats">
+          <div><dt>Edge locations</dt><dd>600+</dd></div>
+          <div><dt>TLS</dt><dd>1.2 / 1.3</dd></div>
+          <div><dt>Public buckets</dt><dd>0</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section class="section" id="architecture">
+      <div class="container">
+        <h2 class="section__title">How the request flows</h2>
+        <p class="section__intro">
+          A visitor never touches S3 directly. CloudFront terminates TLS at the edge and
+          fetches objects from the origin using Origin Access Control (OAC). The bucket
+          policy trusts <em>only</em> this distribution.
+        </p>
+
+        <ol class="flow" aria-label="Request flow">
+          <li class="flow__step">
+            <span class="flow__num">1</span>
+            <h3>User</h3>
+            <p>Browser requests <code>https://s3-demo.sillageandskin.com</code>.</p>
+          </li>
+          <li class="flow__step">
+            <span class="flow__num">2</span>
+            <h3>DNS (Hostinger)</h3>
+            <p>A CNAME record resolves the subdomain to the CloudFront distribution.</p>
+          </li>
+          <li class="flow__step">
+            <span class="flow__num">3</span>
+            <h3>CloudFront + ACM</h3>
+            <p>Edge serves cached content over HTTPS; cache miss triggers an origin fetch.</p>
+          </li>
+          <li class="flow__step">
+            <span class="flow__num">4</span>
+            <h3>S3 (private)</h3>
+            <p>OAC-signed request reads the object. Public access is fully blocked.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section section--alt" id="features">
+      <div class="container">
+        <h2 class="section__title">Built to a production standard</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>🔒 Private origin</h3>
+            <p>S3 Block Public Access stays fully enabled. The bucket is reachable only through CloudFront via OAC — no static-website public endpoint exposed.</p>
+          </article>
+          <article class="card">
+            <h3>🛡️ Least-privilege IAM</h3>
+            <p>A dedicated deploy identity can sync this one bucket and invalidate the distribution — nothing more. No wildcards on resources.</p>
+          </article>
+          <article class="card">
+            <h3>🌍 Global delivery</h3>
+            <p>CloudFront caches at 600+ edge locations, cutting latency and shielding the origin from direct load.</p>
+          </article>
+          <article class="card">
+            <h3>🔐 HTTPS everywhere</h3>
+            <p>An ACM certificate enforces TLS. Viewer requests are redirected from HTTP to HTTPS at the edge.</p>
+          </article>
+          <article class="card">
+            <h3>🧱 Versioning &amp; encryption</h3>
+            <p>Bucket versioning protects against accidental overwrites; SSE-S3 encrypts objects at rest by default.</p>
+          </article>
+          <article class="card">
+            <h3>📈 Observability</h3>
+            <p>S3 server access logs and CloudFront standard logs land in a separate, lifecycle-managed log bucket.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- STACK -->
+    <section class="section" id="stack">
+      <div class="container">
+        <h2 class="section__title">The stack</h2>
+        <ul class="stack">
+          <li><span class="stack__svc">Amazon S3</span><span>Object storage origin (private)</span></li>
+          <li><span class="stack__svc">Amazon CloudFront</span><span>CDN + TLS termination</span></li>
+          <li><span class="stack__svc">AWS Certificate Manager</span><span>Free public TLS certificate</span></li>
+          <li><span class="stack__svc">Hostinger DNS</span><span>CNAME &rarr; CloudFront distribution</span></li>
+          <li><span class="stack__svc">AWS IAM</span><span>Least-privilege access policy</span></li>
+          <li><span class="stack__svc">Terraform</span><span>Infrastructure as Code &mdash; provisions the whole stack</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section section--cta" id="contact">
+      <div class="container cta">
+        <h2>Want the full walkthrough?</h2>
+        <p>The deployment guide and policy files ship alongside this site in the repository.</p>
+        <a class="btn btn--primary" href="https://www.linkedin.com/" rel="noopener" target="_blank">Connect on LinkedIn</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <p>&copy; <span id="year">2026</span> CloudHost demo · Hosted on AWS S3 + CloudFront</p>
+      <p class="footer__meta">Build: <span id="build-id">static</span></p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

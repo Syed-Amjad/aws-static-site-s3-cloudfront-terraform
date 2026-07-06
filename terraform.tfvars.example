@@ -1,0 +1,27 @@
+# -----------------------------------------------------------------------------
+# Copy this file to terraform.tfvars and fill in YOUR values:
+#   cp terraform.tfvars.example terraform.tfvars
+#
+# terraform.tfvars is gitignored — your real values never get committed.
+# This example file uses PLACEHOLDERS on purpose so the repo stays a clean,
+# reusable template.
+# -----------------------------------------------------------------------------
+
+aws_region = "us-east-1"
+
+# A NEW globally-unique bucket name (lowercase). e.g. yourname-cloudhost-prod
+bucket_name = "your-globally-unique-bucket-name"
+
+# Must EXACTLY match the domain of an already-ISSUED ACM certificate in us-east-1.
+domain_name = "sub.example.com"
+
+# Optional overrides:
+# price_class              = "PriceClass_100"
+# minimum_protocol_version = "TLSv1.2_2021"
+
+tags = {
+  Project     = "CloudHost"
+  Environment = "prod"
+  ManagedBy   = "Terraform"
+  Owner       = "Your Name"
+}

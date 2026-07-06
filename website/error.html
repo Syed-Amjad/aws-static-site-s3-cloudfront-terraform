@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>404 — Page not found · CloudHost</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .error-wrap { min-height: 70vh; display: grid; place-items: center; text-align: center; }
+    .error-code { font-size: clamp(4rem, 18vw, 9rem); font-weight: 800; line-height: 1; color: var(--brand); margin: 0; }
+    .error-wrap p { color: var(--muted); max-width: 48ch; margin: .5rem auto 1.8rem; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Primary">
+      <a class="brand" href="/"><span class="brand__mark" aria-hidden="true">☁</span><span class="brand__name">CloudHost</span></a>
+    </nav>
+  </header>
+
+  <main class="container error-wrap">
+    <div>
+      <p class="error-code">404</p>
+      <h1>This object isn&rsquo;t in the bucket.</h1>
+      <p>The page you requested doesn&rsquo;t exist or has moved. Let&rsquo;s get you back to safety.</p>
+      <a class="btn btn--primary" href="/">Return home</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <p>&copy; <span id="year">2026</span> CloudHost demo · Hosted on AWS S3 + CloudFront</p>
+    </div>
+  </footer>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

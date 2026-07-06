@@ -1,0 +1,22 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.tfstate.lock.info
+*.tfplan
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# Variable files may contain sensitive values — commit only the example.
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+
+# Keep the dependency lock file committed (recommended):
+!.terraform.lock.hcl
