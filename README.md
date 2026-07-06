@@ -33,9 +33,7 @@ terraform-cloudhost/
 ├── terraform.tfvars.example       # copy to terraform.tfvars and fill in
 ├── .gitignore                     # ignores state + tfvars, keeps lock file
 ├── website/                       # the static site (uploaded as aws_s3_object)
-├── DEPLOYMENT_GUIDE_TERRAFORM.md  # full WSL2 walkthrough (deploy → verify → destroy)
-├── TEARDOWN_CONSOLE_RESOURCES.md  # remove the earlier console build (keeps cert + CNAMEs)
-└── LINKEDIN_POST_TERRAFORM.md     # ready-to-post copy
+
 ```
 
 ## Quick start (Ubuntu 24.04 / WSL2)
